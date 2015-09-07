@@ -21,7 +21,7 @@ drop' x = x
 
 --pembatas
 
-fst' x = x
+fst' (a, b) = a
 
 --pembatas
 
