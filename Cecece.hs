@@ -105,7 +105,9 @@ init' x = x
 
 --pembatas
 
-max' x = x
+max' x y
+  | x > y = x
+  | otherwise = y
 
 --pembatas
 
