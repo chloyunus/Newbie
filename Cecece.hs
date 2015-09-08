@@ -13,11 +13,15 @@ null' x
 
 --pembatas
 
-take' x = x
+take' 0 (x:xs) = []
+take' _ [] = []
+take' a (x:xs) = x : take' (a-1) (xs)
 
 --pembatas
 
-drop' x = x
+drop' 0 (x:xs) = (x:xs)
+drop' _ [] = []
+drop' a (x:xs) = drop' (a-1) (xs)
 
 --pembatas
 
@@ -37,12 +41,7 @@ filter' x = x
 
 --pembatas
 
-delete' x = x
-
---pembatas
-
-deleteAll' x = x
-
+delete' _ [] = []
 --pembatas
 
 foldl' x = x
@@ -97,7 +96,7 @@ last' x = x
 
 --pembatas
 
-tail' x = x
+tail' (x:xs) = (xs)
 
 --pembatas
 
@@ -111,7 +110,7 @@ max' x y
 
 --pembatas
 
-min' x = x
+min' x y = if x < y then x else y
 
 --pembatas
 
@@ -237,7 +236,7 @@ partition' x = x
 
 --pembatas
 
-replicate' x = x
+replicate' 0 _ = []
 
 --pembatas
 -- First Assignment
