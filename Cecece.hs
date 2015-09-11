@@ -1,7 +1,7 @@
 -- First Assignment
 -- Reimplement Haskell function
 -- DON'T USE GOOGLE
-module Template where
+module Cecece where
 
 import Data.List
 
@@ -42,6 +42,10 @@ filter' x = x
 --pembatas
 
 delete' _ [] = []
+delete' a (x:xs)
+  | a == x = (xs)
+  | a /= x = x : delete' a (xs)
+
 --pembatas
 
 foldl' x = x
@@ -52,7 +56,9 @@ foldl1' x = x
 
 --pembatas
 
-zip' x = x
+zip' [] [] = []
+zip' [] _ = []
+zip' _ [] = []
 
 --pembatas
 
@@ -72,27 +78,38 @@ scanl1' x = x
 
 --pembatas
 
-elem' x = x
+elem' _ [] = False
+elem' a (x:xs)
+  | a == x = True
+  | a /= x = elem' a (xs)
+  | otherwise = False
 
 --pembatas
 
-notElem' x = x
+notElem' _ [] = True
+notElem' a (x:xs)
+  | a == x = False
+  | a /= x = elem' a (xs)
+  | otherwise = True
 
 --pembatas
 
-head' x = x
+head' (x:xs) = x
 
 --pembatas
 
-length' x = x
+length' [] = 0
+length' [x] = 1
+length' (x:xs) = 1 + length' xs
 
 --pembatas
 
-reverse' x = x
+reverse' [] = []
 
 --pembatas
 
-last' x = x
+last' [x] = x
+last' (x:xs) = last' (xs)
 
 --pembatas
 
@@ -100,7 +117,8 @@ tail' (x:xs) = (xs)
 
 --pembatas
 
-init' x = x
+init' [x] = []
+init' (x:xs) = x : init' (xs)
 
 --pembatas
 
@@ -114,7 +132,8 @@ min' x y = if x < y then x else y
 
 --pembatas
 
-concat' x = x
+concat' [[],[]] = []
+concat' [(xs),(ys)] = xs ++ ys
 
 --pembatas
 
@@ -126,11 +145,17 @@ intercalate' x = x
 
 --pembatas
 
-and' x = x
+and' (True, True) = True
+and' (True, False) = False
+and' (False, True) = True
+and' (False, False) = False
 
 --pembatas
 
-or' x = x
+or' (True, True) = True
+or' (True, False) = False
+or' (False, True) = True
+or' (False, False) = False
 
 --pembatas
 
@@ -138,7 +163,8 @@ zip3' x = x
 
 --pembatas
 
-sum' x = x
+sum' [] = 0
+sum' (x:xs) = x + sum' (xs)
 
 --pembatas
 
@@ -146,7 +172,7 @@ product' x = x
 
 --pembatas
 
-words' x = x
+words' "" = []
 
 --pembatas
 
@@ -182,7 +208,10 @@ any' x = x
 
 --pembatas
 
-insert' x = x
+insert' a [] = [a]
+insert' a (x:xs)
+  | x >= a = (a:x:xs)
+  | otherwise = x : insert' a (xs)
 
 --pembatas
 
@@ -196,7 +225,7 @@ nub' x = x
 
 --pembatas
 
-sort' x = x
+sort' [] = []
 
 --pembatas
 
