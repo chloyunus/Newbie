@@ -44,7 +44,7 @@ filter' x = x
 delete' _ [] = []
 delete' a (x:xs)
   | a == x = (xs)
-  | a /= x = x : delete' a (xs)
+  | otherwise = x : delete' a (xs)
 
 --pembatas
 
@@ -59,6 +59,7 @@ foldl1' x = x
 zip' [] [] = []
 zip' [] _ = []
 zip' _ [] = []
+zip' (x:xs) (y:ys) = (x,y) : zip' (xs) (ys)
 
 --pembatas
 
@@ -66,7 +67,7 @@ zipWith' x = x
 
 --pembatas
 
-nth' x = x
+(!!) (x:xs) 0 = x
 
 --pembatas
 
@@ -105,6 +106,11 @@ length' (x:xs) = 1 + length' xs
 --pembatas
 
 reverse' [] = []
+reverse' [x] = [x]
+reverse' (x:xs) = union' (reverse' (xs)) [x]
+
+-- gue bingung, Da, Pet yg reverse' :( kok kalo reverse' (xs) : x ga work sih?
+-- yaudah gue pake union' aja biar mau gabung wkekek. ga apa2 kan? xD
 
 --pembatas
 
@@ -173,10 +179,12 @@ product' x = x
 --pembatas
 
 words' "" = []
+words' (x:xs) = [x:xs]
 
 --pembatas
 
-lines' x = x
+lines' "" = []
+lines' (x:xs) = [x:xs]
 
 --pembatas
 
@@ -184,7 +192,8 @@ unlines' x = x
 
 --pembatas
 
-unwords' x = x
+unwords' [] = ""
+unwords' [x:xs] = (x:xs)
 
 --pembatas
 
@@ -200,11 +209,20 @@ concatMap' x = x
 
 --pembatas
 
-all' x = x
+all' _ [] = True
+all' (a) [x]
+  | a x = True
+  | True = False
 
 --pembatas
 
-any' x = x
+any' _ [] = True
+any' (a) [x]
+  | a x = True
+  | True = False
+any' (a) (x:xs)
+  | a x = True
+  | True = any' (a) (xs)
 
 --pembatas
 
@@ -221,43 +239,58 @@ zipWith3' x = x
 
 -- 1.b
 
-nub' x = x
+nub' (x:xs) = (x:xs)
 
 --pembatas
 
 sort' [] = []
+sort' (x) = (x)
 
 --pembatas
 
-minimum' x = x
+minimum' [x] = x
+minimum' (x:xs) = min' x (minimum' (xs))
 
 --pembatas
 
-maximum' x = x
+maximum' [x] = x
+maximum' (x:xs)
+ | x > maxEkor = x
+ | otherwise = maxEkor
+ where maxEkor = maximum' (xs)
 
 --pembatas
 
-inits' x = x
+inits' [] = [[]]
+inits' x = [[],x]
 
 --pembatas
 
-tails' x = x
+tails' [] = [[]]
+tails' [x] = [[x],[]]
+tails' (x:xs) = [x:xs] ++ tails' (xs)
 
 --pembatas
 
-union' x = x
+union' [] [] = []
+union' (x:xs) [] = (x:xs)
+union' [] (x:xs) = (x:xs)
+union' (x:xs) (y:ys) = (x:xs) ++ (y:ys)
 
 --pembatas
 
-intersect' x = x
+intersect' [] [] = []
+intersect' (x:xs) [] = []
+intersect' [] (x:xs) = []
 
 --pembatas
 
-group' x = x
+group' [] = []
 
 --pembatas
 
-splitAt' x = x
+splitAt' 0 [x] = ([],[x])
+splitAt' _ [0] = ([0],[])
 
 --pembatas
 
@@ -266,6 +299,8 @@ partition' x = x
 --pembatas
 
 replicate' 0 _ = []
+replicate' 1 (x) = [x]
+replicate' a (x:xs) = (x:xs) : replicate' (a-1) (x:xs)
 
 --pembatas
 -- First Assignment
